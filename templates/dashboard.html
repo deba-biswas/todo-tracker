@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}" />
+</head>
+
+<body>
+    <div class="container">
+
+        <div class="navbar">
+            <div class="logo">My To-Do</div>
+            <div class="dropdown">
+                <img src="{{ url_for('static', filename='images/user-icon.png') }}" alt="User" class="profile-icon"
+                    onclick="toggleDropdown()" />
+                <div id="dropdown-menu" class="dropdown-menu">
+                    <p><strong>Username:</strong> {{ current_user.username }}</p>
+                    <p><strong>Email:</strong> {{ current_user.email }}</p>
+                    <a href="{{ url_for('logout') }}">Logout</a>
+                    <form action="{{ url_for('delete_account') }}" method="POST"
+                        onsubmit="return confirm('Are you sure?');">
+                        <button type="submit">Delete Account</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+        <h2>Tasks :</h2>
+
+        <form class="add-task-form" action="{{ url_for('add_task') }}" method="POST">
+            <input type="text" name="content" placeholder="Add new task" required />
+            <button type="submit">+</button>
+        </form>
+
+        <h3>Pending Tasks ({{ pending_tasks|length }})</h3>
+        <ul class="task-list">
+            {% for task in pending_tasks %}
+            <li>
+                <form action="{{ url_for('toggle_task', task_id=task.id) }}" method="POST" style="display:inline;">
+                    <input type="checkbox" onchange="this.form.submit()" {% if task.completed %}checked{% endif %} />
+                </form>
+                <span>{{ task.content }}</span>
+                <form action="{{ url_for('delete_task', task_id=task.id) }}" method="POST" style="display:inline;">
+                    <button type="submit">&times;</button>
+                </form>
+            </li>
+            {% endfor %}
+            {% if not pending_tasks %}
+            <p>No pending tasks! Keep up the great work.</p>
+            {% endif %}
+        </ul>
+
+        <h3>Completed Tasks ({{ completed_tasks|length }})</h3>
+        <ul class="task-list">
+            {% for task in completed_tasks %}
+            <li class="completed">
+                <form action="{{ url_for('toggle_task', task_id=task.id) }}" method="POST" style="display:inline;">
+                    <input type="checkbox" onchange="this.form.submit()" {% if task.completed %}checked{% endif %} />
+                </form>
+                <span>{{ task.content }}</span>
+                <form action="{{ url_for('delete_task', task_id=task.id) }}" method="POST" style="display:inline;">
+                    <button type="submit">&times;</button>
+                </form>
+            </li>
+            {% endfor %}
+            {% if not completed_tasks %}
+            <p>No completed tasks yet.</p>
+            {% endif %}
+        </ul>
+
+        <div class="task-footer">
+            <p><strong>Your remaining todos: {{ pending_tasks|length }}</strong></p>
+            <p>“Doing what you love is the cornerstone of having abundance in your life.” – Wayne Dyer</p>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/base.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+</body>
+
+</html>
