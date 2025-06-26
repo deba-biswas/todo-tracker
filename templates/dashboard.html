@@ -55,8 +55,11 @@
             {% endif %}
         </ul>
 
-        <h3>Completed Tasks ({{ completed_tasks|length }})</h3>
-        <ul class="task-list">
+        <h3 class="toggle-header" onclick="toggleCompletedTasks()">
+            Completed Tasks ({{ completed_tasks|length }})
+            <span id="toggle-icon">&#9660;</span> {# Down arrow #}
+        </h3>
+        <ul class="task-list hidden" id="completed-tasks-list"> {# Added ID and 'hidden' class #}
             {% for task in completed_tasks %}
             <li class="completed">
                 <form action="{{ url_for('toggle_task', task_id=task.id) }}" method="POST" style="display:inline;">
@@ -75,7 +78,6 @@
 
         <div class="task-footer">
             <p><strong>Your remaining todos: {{ pending_tasks|length }}</strong></p>
-            <p>“Doing what you love is the cornerstone of having abundance in your life.” – Wayne Dyer</p>
         </div>
     </div>
 

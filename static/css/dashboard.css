@@ -183,3 +183,31 @@ ul.task-list button {
         font-size: 1.3rem;
     }
 }
+
+.hidden {
+    display: none;
+}
+
+.toggle-header {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* To push the icon to the right */
+    padding: 0.5rem 0;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #eee; /* Optional: adds a subtle line */
+}
+
+.toggle-header:hover {
+    color: #007bff; /* Optional: highlight on hover */
+}
+
+.toggle-header #toggle-icon {
+    transition: transform 0.3s ease; /* Smooth rotation */
+    font-size: 1.2rem;
+    margin-left: 0.5rem;
+}
+
+.toggle-header #toggle-icon.rotated {
+    transform: rotate(180deg); /* Up arrow when rotated */
+}

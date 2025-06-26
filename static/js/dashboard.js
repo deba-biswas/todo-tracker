@@ -11,3 +11,18 @@ window.onclick = function (event) {
     }
   }
 };
+
+function toggleCompletedTasks() {
+  const completedList = document.getElementById("completed-tasks-list");
+  const toggleIcon = document.getElementById("toggle-icon");
+
+  if (completedList.classList.contains("hidden")) {
+    completedList.classList.remove("hidden");
+    toggleIcon.classList.add("rotated");
+    toggleIcon.innerHTML = "&#9650;";
+  } else {
+    completedList.classList.add("hidden");
+    toggleIcon.classList.remove("rotated");
+    toggleIcon.innerHTML = "&#9660;";
+  }
+}
