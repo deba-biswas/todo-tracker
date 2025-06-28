@@ -27,7 +27,7 @@ A user-authenticated to-do list web application built with Flask. Users can regi
 1. Clone the repository:
 
    ```
-   git clone https://github.com/yourusername/flask-todo-app.git
+   git clone https://github.com/deba-biswas/todo-tracker.git
    cd flask-todo-app
    ```
 
